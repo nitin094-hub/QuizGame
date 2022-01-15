@@ -4,13 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login() {
 
-    const [email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
-    console.log(email)
-
+    
     return (
-        <div className="Login-container">
-        <div className="Login-SubContainer">
+        <div className="Login-Register-container">
+        <div className="Login-Register-SubContainer">
             <h1 style={{ marginBottom: "10px" }}>Login</h1>
             <form>
             <div className="username-container mb-3">
@@ -22,9 +19,7 @@ function Login() {
                 className="form-control"
                 id="Email"
                 placeholder="Email"
-                onChange={(e)=>setEmail(e.target.value)}
-                value={email}
-                required
+                
                 />
             </div>
             <div className="mb-3">
@@ -36,8 +31,6 @@ function Login() {
                 className="form-control"
                 id="password"
                 placeholder="Password"
-                onChange={(e)=>setPassword(e.target.value)}
-                value={password}
                 required
                 />
             </div>
