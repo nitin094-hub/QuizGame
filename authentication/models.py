@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
             raise ValueError("Password should not be None")
         
         user = self.create_user(username, email, password)
-        user.is_super = True 
+        user.is_superuser = True 
         user.is_staff = True
         user.save()
         return user 
