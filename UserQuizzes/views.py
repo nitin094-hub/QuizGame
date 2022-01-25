@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
-from UserQuizzes.serializers import QuizSerializer
-from .models import Quizzes
+from UserQuizzes.serializers import QuestionSerializer, QuizSerializer
+from .models import Questions, Quizzes
 
 class QuizListCreateAPIView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -31,3 +31,16 @@ class QuizAPI(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Quizzes.objects.filter(owner=user)
+    
+class QuestionsListCreateAPIView(generics.ListCreateAPIView):
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    serializer_class = QuestionSerializer
+    
+    def get_queryset(self):
+        try:
+            quiz = self.request.data['quiz']
+            return Questions.objects.filter(quiz= quiz)
+        except:
+            return Questions.objects.filter(quiz__in = Quizzes.objects.filter(owner = self.request.user))
