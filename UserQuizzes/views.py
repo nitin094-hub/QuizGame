@@ -33,14 +33,21 @@ class QuizAPI(generics.RetrieveUpdateDestroyAPIView):
         return Quizzes.objects.filter(owner=user)
     
 class QuestionsListCreateAPIView(generics.ListCreateAPIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     serializer_class = QuestionSerializer
     
     def get_queryset(self):
-        try:
-            quiz = self.request.data['quiz']
-            return Questions.objects.filter(quiz= quiz)
-        except:
-            return Questions.objects.filter(quiz__in = Quizzes.objects.filter(owner = self.request.user))
+        return Questions.objects.filter(quiz__in = Quizzes.objects.filter(owner = self.request.user))
+    
+class QuestionsAPI(generics.RetrieveUpdateDestroyAPIView):
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        quiz = self.request.data['quiz']
+        return Questions.objects.filter(quiz = quiz)
