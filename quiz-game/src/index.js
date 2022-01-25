@@ -10,9 +10,9 @@ import { StoreProvider } from "easy-peasy";
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider store={store}>
-      <Router>
+      {/* <Router> */}
         <App />
-      </Router>
+      {/* </Router> */}
     </StoreProvider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -4,6 +4,7 @@ import { useStoreState, useStoreActions } from "easy-peasy";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Navbar from "./Navbar";
 
 function Register() {
 
@@ -62,6 +63,8 @@ function Register() {
   });
 
   return (
+    <>
+    <Navbar/>
     <div className="Login-Register-container">
       <div className="Login-Register-SubContainer">
         <h1 style={{ marginBottom: "10px" }}>Register</h1>
@@ -152,6 +155,7 @@ function Register() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 
