@@ -32,3 +32,11 @@ class Questions(models.Model):
 
     def __str__(self):
         return self.question
+
+class UserScores(models.Model):
+    user = models.ForeignKey(to=User,on_delete=models.CASCADE)
+    quiz = models.ForeignKey(to=Quizzes,on_delete=models.CASCADE)
+    score = models.IntegerField()
+    total = models.IntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+    
