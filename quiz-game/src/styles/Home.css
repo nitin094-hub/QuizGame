@@ -1,0 +1,23 @@
+.homeContainer .heading{
+    text-align: center;
+}
+.homeContainer .create-attempt-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.homeContainer .prev-Quiz{
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.homeContainer .prev-Quiz button{
+    border: none;
+    border-radius: 10px;
+    /* background: wheat; */
+}
+.homeContainer .prev-Quiz .active{
+    
+    background: wheat;
+}

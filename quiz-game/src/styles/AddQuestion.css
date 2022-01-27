@@ -1,0 +1,29 @@
+.AddQuestion-container {
+    width: 97%;
+    margin: auto;
+}
+.AddQuestion-container .add-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.AddQuestion-container .questions-container{
+    margin-top: 10px;
+}
+.AddQuestion-container .questions-container .question{
+    border: 1px solid;
+    padding: 10px;
+    margin: 4px 0px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    background: aliceblue;
+    transition: transform 0.5s;
+}
+.AddQuestion-container .questions-container .question:hover{
+    background: wheat;
+    transform: scale(1.02);
+}
+.AddQuestion-container .questions-container .question .icons{
+    display: flex;
+    gap: 10px;
+}

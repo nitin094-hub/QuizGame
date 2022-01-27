@@ -39,6 +39,8 @@ class QuestionsListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = QuestionSerializer
     
     def get_queryset(self):
+        if(self.request.method=="GET"):
+            return Questions.objects.filter(quiz=self.request.GET.get("quiz",""))
         return Questions.objects.filter(quiz__in = Quizzes.objects.filter(owner = self.request.user))
     
 class QuestionsAPI(generics.RetrieveUpdateDestroyAPIView):
@@ -49,5 +51,4 @@ class QuestionsAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = QuestionSerializer
 
     def get_queryset(self):
-        quiz = self.request.data['quiz']
-        return Questions.objects.filter(quiz = quiz)
+        return Questions.objects.filter(quiz__in = Quizzes.objects.filter(owner = self.request.user))

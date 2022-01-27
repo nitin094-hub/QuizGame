@@ -1,0 +1,51 @@
+.createQuize-contaier {
+    width: 95%;
+    margin: auto;
+}
+.createQuize-contaier .createQuize-head{
+    display: flex;
+    text-align: center;
+    margin: 1px 0px;
+}
+
+.createQuize-contaier .createQuize-head .title{
+    border: 1px solid;
+    flex-basis: 40%;
+}
+.createQuize-contaier .createQuize-head div{
+    border: 1px solid;
+    flex-basis: 20%;
+}
+.createQuize-contaier .list-group .list-group-item{
+    display: flex;
+    padding: 0;
+    margin: 3px 0px;
+    border: none;
+}
+.createQuize-contaier .list-group .list-group-item{
+    display: flex;
+    padding: 0;
+    margin: 3px 0px;
+    border: none;
+    background-color: wheat;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+.createQuize-contaier .list-group .list-group-item p{
+    margin: 0;
+    padding: 10px;
+}
+.createQuize-contaier .list-group .list-group-item:hover{
+    
+    background-color: white;
+
+}
+.createQuize-contaier .list-group .list-group-item .title-content{
+    flex-basis: 40%;
+}
+.createQuize-contaier .list-group .list-group-item div{
+    flex-basis: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
