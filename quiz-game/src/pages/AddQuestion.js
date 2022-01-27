@@ -29,6 +29,7 @@ function AddQuestion() {
     };
     fetchQuiz();
   }, []);
+  
   useEffect(() => {
     const quizQuestions = async () => {
       try {
