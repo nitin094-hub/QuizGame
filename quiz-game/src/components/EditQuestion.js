@@ -11,7 +11,15 @@ function Edit() {
     const navigate=useNavigate();
     const {quesId}=useParams();
     const token = useStoreState((state) => state.token);
-    const [questionDetails,setQuestionDetails]=useState("");
+    const [questionDetails,setQuestionDetails]=useState({
+      question:"",
+      opt1:"",
+      opt2:"",
+      opt3:"",
+      opt4:"",
+      ans:"",
+      points:""
+    });
     const [error,setError]=useState(null);
 
     useEffect(()=>{
@@ -167,10 +175,15 @@ function Edit() {
           id="Points"
           name="points"
           value={questionDetails.points}
-          onChange={(e)=>setQuestionDetails({
-            ...questionDetails,
-            points:(e.target.value=="" ? "" : parseInt(e.target.value))
-          })}
+          onChange={(e)=>{
+            if(!isNaN(e.target.value)){
+
+              setQuestionDetails({
+              ...questionDetails,
+              points:(e.target.value=="" ? "" : parseInt(e.target.value))
+            })
+            }
+        }}
         />
         
       </div>

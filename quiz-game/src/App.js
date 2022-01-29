@@ -9,7 +9,11 @@ import { useEffect } from "react";
 import CreatedQuiz from "./components/CreatedQuiz";
 import AddQuestion from "./pages/AddQuestion";
 import AddQ from "./components/AddQ";
-import Edit from "./components/Edit";
+import EditQuestion from "./components/EditQuestion";
+import NewQuiz from "./components/NewQuiz";
+import EditQuiz from "./components/EditQuiz";
+import AttemptQuiz from "./components/AttemptQuiz";
+import AttendQuiz from "./components/AttendQuiz";
 
 function App() {
   return (
@@ -19,9 +23,13 @@ function App() {
           <Route exact path="/" element={<Home />}>
             <Route path="/createquiz" element={<CreatedQuiz />} />
           </Route>
+          <Route path="/attemptquiz/:id" element={<AttemptQuiz/>}/>
+          <Route path="/newQuiz" element={<NewQuiz/>}/>
           <Route path="/addquestion/:id" element={<AddQuestion />}/>
           <Route path="/addquestion/:id/add" element={<AddQ />} />
-          <Route path="/addquestion/:id/:quesId" element={<Edit/>} />
+          <Route path="/addquestion/:id/editquiz" element={<EditQuiz/>} />
+          <Route path="/addquestion/:id/:quesId" element={<EditQuestion/>} />
+          <Route path="/addquestion/:id/attendQuiz" element={<AttendQuiz/>} />
         </Route>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />

@@ -15,7 +15,7 @@ class Quizzes(models.Model):
     owner = models.ForeignKey(to=User,on_delete=models.CASCADE)
     time_limit = models.IntegerField(default=0)
     attended = models.IntegerField(default=0)
-    max_score = models.IntegerField()
+    max_score = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

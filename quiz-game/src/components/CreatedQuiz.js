@@ -39,7 +39,7 @@ function CreatedQuiz() {
           <h4>Max Score</h4>
         </div>
         <div className="time-limit">
-          <h4>Date</h4>
+          <h4>Date/Time</h4>
         </div>
       </div>
       <div className="list-group">
@@ -62,7 +62,7 @@ function CreatedQuiz() {
                     <p>{item.max_score}</p>
                   </div>
                   <div className="date-content">
-                    <p>{item.date.slice(0,10)}</p>
+                    <p>{item.date}</p>
                   </div>
               </Link>)
           })}

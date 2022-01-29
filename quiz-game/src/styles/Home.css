@@ -21,3 +21,15 @@
     
     background: wheat;
 }
+.attemptQuizCheck{
+    width: 34%;
+    margin: auto;
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 10px;
+    background-color:aliceblue;
+    /* transform: translateY(-13rem); */
+    position: fixed;
+    left: 33%;
+    transition: 0.5s transform;
+}

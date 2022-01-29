@@ -1,0 +1,29 @@
+.AttendQuiz-container{
+    display: flex;
+    height: 91vh;
+}
+.AttendQuiz-container .leftContainer{
+    border: 1px solid;
+    flex-basis: 80%;
+    padding: 10px;
+}
+.AttendQuiz-container .rightContainer{
+    border: 1px solid;
+    flex-basis: 20%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.AttendQuiz-container .rightContainer .questionNumber{
+    border: 1px solid;
+    cursor: pointer;
+    background: wheat;
+    padding: 5px;
+    transition: 0.5s transform;
+    border-radius: 10px;
+    
+}
+.AttendQuiz-container .rightContainer .questionNumber:hover{
+    transform: scale(1.05);
+}

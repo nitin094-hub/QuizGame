@@ -2,6 +2,37 @@
     width: 97%;
     margin: auto;
 }
+
+.AddQuestion-container .head-quizCode .quizCode{
+    display: flex;
+    gap: 10px;
+}
+.AddQuestion-container .head-quizCode .quizCode .quizCodeCopy{
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 8px;
+    background: aliceblue;
+    transition: 0.3s transform;
+    cursor: pointer;
+}
+.AddQuestion-container .head-quizCode .quizCode .quizCodeCopy:hover{
+    transform: scale(1.05);
+}
+.AddQuestion-container .head-quizCode .quizCode  .CopiedMessage{
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: antiquewhite;
+    height: 30px;
+    margin-top: 6px;
+    border-radius: 10px;
+}
+.AddQuestion-container .addquest-btn{
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
 .AddQuestion-container .add-btn{
     display: flex;
     justify-content: flex-end;
