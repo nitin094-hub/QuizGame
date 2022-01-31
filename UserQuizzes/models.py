@@ -16,6 +16,7 @@ class Quizzes(models.Model):
     time_limit = models.IntegerField(default=0)
     attended = models.IntegerField(default=0)
     max_score = models.IntegerField(default=0)
+    no_of_questions = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -39,4 +40,7 @@ class UserScores(models.Model):
     score = models.IntegerField()
     total = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username + " " + self.quiz.title
     
