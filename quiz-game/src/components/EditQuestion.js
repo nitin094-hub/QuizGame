@@ -164,29 +164,6 @@ function Edit() {
         />
        
       </div>
-      
-      <div className="mb-3">
-        <label htmlFor="exampleFormControlInput1" className="form-label">
-          Points
-        </label>
-        <input
-          type="number"
-          className="form-control"
-          id="Points"
-          name="points"
-          value={questionDetails.points}
-          onChange={(e)=>{
-            if(!isNaN(e.target.value)){
-
-              setQuestionDetails({
-              ...questionDetails,
-              points:(e.target.value=="" ? "" : parseInt(e.target.value))
-            })
-            }
-        }}
-        />
-        
-      </div>
       <button className="btn btn-outline-success" type="submit" >
         Submit
     </button>

@@ -1,6 +1,7 @@
 .AttendQuiz-container{
     display: flex;
     height: 91vh;
+   
 }
 .AttendQuiz-container .leftContainer{
     border: 1px solid;
@@ -26,4 +27,24 @@
 }
 .AttendQuiz-container .rightContainer .questionNumber:hover{
     transform: scale(1.05);
+}
+.AttendQuiz-container .rightContainer .timer h4{
+    border: 1px solid ;
+    /* width: 5rem; */
+    background-color: aqua;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.AttendQuiz-container .rightContainer .timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1rem;
+    background-color: wheat;
+    border-radius: 10px;
+    padding: 10px;
 }

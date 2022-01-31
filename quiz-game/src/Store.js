@@ -13,8 +13,10 @@ export default createStore({
     setQuizData:action((state,payload)=>{
         state.quizData=payload;
     }),
-    getPostById:computed(state=>{
-        return (id) => state.quizData.find(item=>item.id==id);
+    quizQuestionAttemptAns:[],
+    setQuizQuestionAttemptAns:action((state,payload)=>{
+        state.quizQuestionAttemptAns=payload;
     }),
+    
     
 })

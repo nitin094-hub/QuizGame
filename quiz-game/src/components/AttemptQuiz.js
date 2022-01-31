@@ -8,7 +8,6 @@ import axios from "axios";
 function AttemptQuiz() {
   const { id } = useParams();
   const token = useStoreState((state) => state.token);
-  const [quizQuestion, setQuizQuestion] = useState({});
   const [quiz, setQuiz] = useState({});
 
   
@@ -47,11 +46,11 @@ function AttemptQuiz() {
               <h6>Quiz duration</h6>
               <h5>{`${quiz.time_limit} min`}</h5>
             </div>
-            <div className="testDuration">
+            <div className="NoQuestion">
               <h6>No. of Questions</h6>
               <h5>{`${quiz.time_limit} questions`}</h5>
             </div>
-            <div className="testDuration">
+            <div className="Points">
               <h6>Points</h6>
               <h5>{quiz.max_score}</h5>
             </div>

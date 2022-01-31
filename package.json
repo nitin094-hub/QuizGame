@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "react-timer-hook": "^3.0.5"
   }
 }

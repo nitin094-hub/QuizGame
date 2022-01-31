@@ -16,6 +16,7 @@ import AttemptQuiz from "./components/AttemptQuiz";
 import AttendQuiz from "./components/AttendQuiz";
 
 function App() {
+  
   return (
     <main className="App">
       <Routes>
@@ -29,7 +30,7 @@ function App() {
           <Route path="/addquestion/:id/add" element={<AddQ />} />
           <Route path="/addquestion/:id/editquiz" element={<EditQuiz/>} />
           <Route path="/addquestion/:id/:quesId" element={<EditQuestion/>} />
-          <Route path="/addquestion/:id/attendQuiz" element={<AttendQuiz/>} />
+          <Route path="/addquestion/:id/attendQuiz" element={<AttendQuiz />} />
         </Route>
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
