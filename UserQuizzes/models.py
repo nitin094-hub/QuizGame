@@ -1,4 +1,3 @@
-from turtle import title
 from django.db import models
 import uuid
 from authentication.models import User
