@@ -85,10 +85,11 @@ class ScoreAPIView(APIView):
         return Response(serializer_obj.data)
     
     def post(self,request):
-        ques = Questions.objects.filter(quiz = request.data['quizId'])
         points = 0
         correct_ans = 0
         try:
+            ques = Questions.objects.filter(quiz = request.data['quizId'])
+            quiz = Quizzes.objects.get(id = request.data['quizId'])
             for answer in request.data['answers']:
                 Q = ques.get(id = answer["quesId"])
                 if Q.ans == answer['option']:
@@ -98,11 +99,13 @@ class ScoreAPIView(APIView):
                 "user":request.user.id,
                 "quiz":request.data['quizId'],
                 "score":points,
-                "total":Quizzes.objects.get(id = request.data['quizId']).max_score
+                "total":quiz.max_score
                 }
             serialzer_obj = self.serializer_class(data=data)
             serialzer_obj.is_valid(raise_exception=True)
             serialzer_obj.save()
+            quiz.attended +=1
+            quiz.save()
             
         except:
             return Response("something went wrong",status=status.HTTP_400_BAD_REQUEST)
