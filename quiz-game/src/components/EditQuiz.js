@@ -43,7 +43,7 @@ function EditQuiz() {
                 Authorization: `Token ${token.slice(1, -1)}`,
               },
             })
-            navigate(`/createquiz`)
+            navigate(`/`)
         }
         catch(err){
             console.log(err.message)

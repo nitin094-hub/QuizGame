@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
-import {useStoreState,useStoreActions, action} from 'easy-peasy';
-import NavBarPrivate from "../pages/NavBarPrivate";
+import { useParams } from "react-router-dom";
+import {useStoreState,useStoreActions} from 'easy-peasy';
 import "../styles/AttendQuiz.css";
 import QuizOptions from "./QuizOptions";
 import { useNavigate } from "react-router-dom"
+import NavBarAttemptQuiz from "../pages/NavBarAttemptQuiz";
+import { GrPrevious } from 'react-icons/gr';
+import { GrNext } from 'react-icons/gr';
 
 
 function AttendQuiz({expiryTimestamp}) {
   const navigate=useNavigate();
   const { id } = useParams();
   const token = useStoreState((state) => state.token);
+  const setScore = useStoreActions((action) => action.setScore);
+  const setMaxScore = useStoreActions((action) => action.setMaxScore);
   const [prevActive,setPrevActive]=useState(0);
   const [quizQuestion, setQuizQuestion] = useState([
     {
@@ -27,7 +31,7 @@ function AttendQuiz({expiryTimestamp}) {
   const [min,setMin]=useState(0);
   // const setMin=useStoreActions((action) => action.setMin);
   const quizQuestionAttemptAns=useStoreState(state=>state.quizQuestionAttemptAns);
-
+  const [idx,setIdx]=useState(0);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -52,27 +56,27 @@ function AttendQuiz({expiryTimestamp}) {
     fetchQuiz();
   }, []);
 
-  const handleActiveArray=(idx)=>{
+  useEffect(()=>{
     const newArray=[...activeArray];
     newArray[prevActive]=false;
     setPrevActive(idx)
     newArray[idx]=true;
     setActiveArray(newArray)
-  }
+  },[idx])
+
   const future_time=new Date(localStorage.getItem("future_time"));
-  // console.log(diff);
+
   let interval = null;
   useEffect(() => {
-      // if(min==0 && seconds==0) navigate("/createquiz")
       
       interval = setInterval(() => {
         const now=new Date();
         const diff=future_time.getTime()-now.getTime()
         const minutes = (diff / 1000) / 60;
         const seconds = (diff / 1000) % 60;
-        // console.log(parseInt(minutes),parseInt(seconds))
         setMin(parseInt(minutes));
         setSeconds(parseInt(seconds));
+        if(parseInt(minutes)==0 && parseInt(seconds)==0) handleSubmit();
       }, 1000);
     
     return () => clearInterval(interval);
@@ -92,18 +96,17 @@ function AttendQuiz({expiryTimestamp}) {
           },
         }
       );
-      console.log(res)
+      setMaxScore(res.data.max_score);
+      setScore(res.data.points)
+      navigate("/attemptquiz/:id/feedback")
     } catch (err) {
       console.log(err.message);
     }
-    // localStorage.removeItem("future_time")
-    console.log(sendData)
-    // navigate("/")
   }
 
   return (
     <>
-      <NavBarPrivate />
+      <NavBarAttemptQuiz/>
       <main className="AttendQuiz-container">
       
               
@@ -148,7 +151,7 @@ function AttendQuiz({expiryTimestamp}) {
 
           {quizQuestion.map((item,idx) => {
             return (
-              <div className="questionNumber" onClick={()=>{handleActiveArray(idx)}} key={idx}>
+              <div className={activeArray[idx]? "questionNumber scale" : "questionNumber"} onClick={()=>{setIdx(idx)}} key={idx}>
                 <h4>Question {idx+1}</h4>
               </div>
             );
@@ -157,6 +160,16 @@ function AttendQuiz({expiryTimestamp}) {
           <button className="btn btn-outline-success" type="submit" style={{marginTop:"2rem"}} onClick={()=>handleSubmit()}>
             Submit Quiz
         </button>
+        <div className="prevNextBtn">
+          <button className={idx==0 ? "prevBtn prevAvail btn" : "prevBtn btn"} onClick={()=>{idx==0 ? setIdx(idx) : setIdx(idx-1)}}>
+            <GrPrevious size={18}/>
+            <h5 style={{margin:"0",marginBottom: "2px"}}>Prev</h5>
+          </button>
+          <button className={idx==quizQuestion.length-1 ? "nextBtn nextAvail btn" : "nextBtn btn"} onClick={()=>{idx==quizQuestion.length-1 ? setIdx(idx) : setIdx(idx+1)}}>
+            <h5 style={{margin:"0" ,marginBottom: "2px"}}>Next</h5>
+            <GrNext size={18}/>
+          </button>
+        </div>
         </div>
       </main>
     </>

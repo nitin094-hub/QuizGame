@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import NavBarPrivate from "../pages/NavBarPrivate";
 import { useStoreState, useStoreActions, action } from "easy-peasy";
 import "../styles/AttemptQuiz.css";
 import { useParams,Link } from "react-router-dom";
 import axios from "axios";
+import NavBarAttemptQuiz from "../pages/NavBarAttemptQuiz";
 
 function AttemptQuiz() {
   const { id } = useParams();
@@ -39,7 +39,7 @@ function AttemptQuiz() {
   }, []);
   return (
     <>
-      <NavBarPrivate />
+      <NavBarAttemptQuiz/>
       {console.log(min)}
       <main className="AttemptQuizStarter-container">
         <div className="leftContainer">
@@ -56,7 +56,7 @@ function AttemptQuiz() {
             </div>
             <div className="NoQuestion">
               <h6>No. of Questions</h6>
-              <h5>{`${quiz.time_limit} questions`}</h5>
+              <h5>{`${quiz.no_of_questions} questions`}</h5>
             </div>
             <div className="Points">
               <h6>Points</h6>

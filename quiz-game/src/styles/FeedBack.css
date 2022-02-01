@@ -1,0 +1,37 @@
+.messageContainer{
+    width: 85%;
+    margin: auto;
+}
+.messageContainer .image{
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.messageContainer .image .homeBtn{
+    width: 9rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    background: antiquewhite;
+    border: none;
+}
+.messageContainer .head{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+.messageContainer .head h1{
+    font-weight: 400;
+}
+.messageContainer .content h5{
+    font-weight: 400;
+    color: #908787;
+}

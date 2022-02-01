@@ -27,7 +27,9 @@ function CreatedQuiz() {
   }, []);
 
   return (
-    <main className="createQuize-contaier">
+    <main className="responsive">
+      <div className="createQuize-contaier">
+
       <div className="createQuize-head">
         <div className="title">
           <h4>Title</h4>
@@ -42,31 +44,35 @@ function CreatedQuiz() {
           <h4>Date/Time</h4>
         </div>
       </div>
-      <div className="list-group">
-          {quizData.map((item,idx)=>{
-              return(<Link
-                to={`/addquestion/${item.id}`}
-                className="list-group-item list-group-item-action "
-                aria-current="true"
-                key={idx}
-              >
-                
+      
+      {quizData.length==0 ? <div style={{textAlign:"center",fontSize:"1.5rem"}}>No data Available</div> :
+        <div className="list-group">
+        {quizData.map((item,idx)=>{
+            return(<Link
+              to={`/addquestion/${item.id}`}
+              className="list-group-item list-group-item-action "
+              aria-current="true"
+              key={idx}
+            >
+              
 
-                  <div className="title-content">
-                    <p>{item.title.length<=10 ? item.title : item.title.slice(0,11)}</p>
-                  </div>
-                  <div className="time-content">
-                    <p>{item.time_limit}</p>
-                  </div>
-                  <div className="max-content">
-                    <p>{item.max_score}</p>
-                  </div>
-                  <div className="date-content">
-                    <p>{item.date}</p>
-                  </div>
-              </Link>)
-          })}
-        
+                <div className="title-content">
+                  <p>{item.title.length<=10 ? item.title : item.title.slice(0,11)}</p>
+                </div>
+                <div className="time-content">
+                  <p>{item.time_limit}</p>
+                </div>
+                <div className="max-content">
+                  <p>{item.max_score}</p>
+                </div>
+                <div className="date-content">
+                  <p>{item.date}</p>
+                </div>
+            </Link>)
+        })}
+      
+    </div>
+      }
       </div>
     </main>
   );

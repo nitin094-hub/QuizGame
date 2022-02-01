@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useStoreState } from "easy-peasy";
+import { useStoreState ,useStoreActions} from "easy-peasy";
 import NavBarPrivate from "./NavBarPrivate";
 import "../styles/Home.css";
 import { ImCross } from 'react-icons/im';
@@ -14,25 +14,36 @@ function Home() {
   const token = useStoreState((state) => state.token);
   const user = useStoreState((state) => state.user);
   const quizData = useStoreState((state) => state.quizData);
-  const [translatePop,setTranslatePop]=useState(-13.6);
+  // const [translatePop,setTranslatePop]=useState(-13.6);
+  const translatePop = useStoreState((state) => state.translatePop);
+  const setTranslatePop = useStoreActions((action) => action.setTranslatePop);
+  const setIsValidQuiz = useStoreActions((action) => action.setIsValidQuiz);
+  
   const [attemptQuizCode,setAttemptQuizCode]=useState("");
   const [isAttemptQuizCodeError,setIsAttemptQuizCodeError]=useState(false);
   const navigate=useNavigate();
 
-  
+  useEffect(()=>{
+
+    setIsValidQuiz(false);
+  },[])
   const onSubmit=async(e)=>{
     e.preventDefault();
     try {
       const res = await axios.get(
-        `http://127.0.0.1:8000/quiz/questions/?quiz=${attemptQuizCode}`,
+        `http://127.0.0.1:8000/quiz/quiz/${attemptQuizCode}`,
         {
           headers: {
             Authorization: `Token ${token.slice(1, -1)}`,
           },
         }
       );
+      setIsValidQuiz(true);
+      localStorage.setItem("isValidQuiz",true);
+      setTranslatePop(-13.6)
       navigate(`/attemptquiz/${attemptQuizCode}`)
     } catch (err) {
+      // console.log("hi")
       console.log(err.message)
       setIsAttemptQuizCodeError(true);
     }
@@ -86,15 +97,16 @@ function Home() {
             className={`${toggle ? "active" : ""}`}
             onClick={() => {
               setToggle(!toggle);
-              navigate("createquiz")
+              navigate("/")
             }}
-          >
+            >
             <h5> Created Quizzes</h5>
           </button>
           <button
             className={`${!toggle ? "active" : ""}`}
             onClick={() => {
               setToggle(!toggle);
+              navigate("/attendedquiz")
               
             }}
           >
@@ -102,6 +114,10 @@ function Home() {
           </button>
         </div>
         <Outlet />
+        <div class="box">
+    
+          <div class="ribbon ribbon-bottom-left"><a href="https://github.com/nitin094-hub/QuizGame" target="_blank">Star me on Github</a></div>
+        </div>
       </div>
     </>
   );

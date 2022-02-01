@@ -26,7 +26,7 @@ function NewQuiz() {
               },
             })
             console.log(response)
-            navigate("/createquiz")
+            navigate("/")
         }
         catch(err){
             console.log(err.message)

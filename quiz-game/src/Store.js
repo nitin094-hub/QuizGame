@@ -17,6 +17,25 @@ export default createStore({
     setQuizQuestionAttemptAns:action((state,payload)=>{
         state.quizQuestionAttemptAns=payload;
     }),
+    translatePop:-13.6,
+    setTranslatePop:action((state,payload)=>{
+        state.translatePop=payload;
+    }),
+    
+    score:0,
+    setScore:action((state,payload)=>{
+        state.score=payload;
+    }),
+    
+    maxScore:0,
+    setMaxScore:action((state,payload)=>{
+        state.maxScore=payload;
+    }),
+    
+    isValidQuiz:localStorage.getItem("isValidQuiz"),
+    setIsValidQuiz:action((state,payload)=>{
+        state.isValidQuiz=payload;
+    }),
     
     
 })

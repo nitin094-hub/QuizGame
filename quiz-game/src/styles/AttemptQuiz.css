@@ -40,3 +40,16 @@
     flex-direction: column;
     gap: 10px;
 }
+@media only screen and (max-width: 924px) {
+    
+    .AttemptQuizStarter-container{
+        flex-direction: column;
+        height: 100vh;
+    }
+    .AttemptQuizStarter-container .leftContainer{
+        padding: 0 1rem;
+    }
+    .AttemptQuizStarter-container .rightContainer{
+        padding: 0 1rem;
+    }
+}

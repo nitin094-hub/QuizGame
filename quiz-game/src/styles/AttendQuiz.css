@@ -4,12 +4,12 @@
     
 }
 .AttendQuiz-container .leftContainer{
-    border: 1px solid;
+    
+    border-right: 1px solid;
     flex-basis: 80%;
     padding: 10px;
 }
 .AttendQuiz-container .rightContainer{
-    border: 1px solid;
     flex-basis: 20%;
     padding: 10px;
     display: flex;
@@ -20,7 +20,7 @@
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 .AttendQuiz-container .rightContainer .questionNumber{
     border: 1px solid;
@@ -32,6 +32,9 @@
     
 }
 .AttendQuiz-container .rightContainer .questionNumber:hover{
+    transform: scale(1.05);
+}
+.AttendQuiz-container .rightContainer  .scale{
     transform: scale(1.05);
 }
 .AttendQuiz-container .rightContainer .timer h4{
@@ -53,4 +56,40 @@
     background-color: wheat;
     border-radius: 10px;
     padding: 10px;
+}
+.AttendQuiz-container .rightContainer .prevNextBtn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+.AttendQuiz-container .rightContainer .prevNextBtn .btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eaeaea;
+}
+.AttendQuiz-container .rightContainer .prevNextBtn .nextAvail{
+    opacity: 0;
+    cursor:auto;
+}
+.AttendQuiz-container .rightContainer .prevNextBtn .prevAvail{
+    opacity: 0;
+    cursor: auto;
+}
+
+
+@media only screen and (max-width: 658px) {
+    
+    .AttendQuiz-container{  
+        flex-direction: column;
+    }
+    .AttendQuiz-container .rightContainer{
+        padding: 17px;
+    }
+    .AttendQuiz-container .leftContainer{
+        
+        border-right: none;
+        border-bottom: 1px solid ;
+    }
 }

@@ -33,3 +33,56 @@
     left: 33%;
     transition: 0.5s transform;
 }
+
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: fixed;
+  }
+  
+.ribbon a {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #a00;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0,0,0,.2);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 0.8rem;
+    text-decoration: none;
+  }
+  .ribbon-bottom-left {
+    bottom: -10px;
+    left: -10px;
+  }
+  .ribbon-bottom-left::before,
+  .ribbon-bottom-left::after {
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  .ribbon-bottom-left::before {
+    bottom: 0;
+    right: 0;
+  }
+  .ribbon-bottom-left::after {
+    top: 0;
+    left: 0;
+  }
+  .ribbon-bottom-left a {
+    right: -25px;
+    bottom: 40px;
+    transform: rotate(45deg);
+  }
+  
+  @media only screen and (max-width: 923px) {
+    
+    .attemptQuizCheck{
+        width: 62%;
+        left: 19%;
+    }
+}

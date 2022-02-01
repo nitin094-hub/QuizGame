@@ -82,6 +82,9 @@ class ScoreAPIView(APIView):
     def get(self,request):
         queryset = UserScores.objects.filter(user = request.user)
         serializer_obj = self.serializer_class(queryset,many = True)
+        for obj in serializer_obj.data:
+            quiz=Quizzes.objects.get(id=obj["quiz"])
+            obj["quizTitle"]=quiz.title
         return Response(serializer_obj.data)
     
     def post(self,request):
@@ -109,4 +112,4 @@ class ScoreAPIView(APIView):
             
         except:
             return Response("something went wrong",status=status.HTTP_400_BAD_REQUEST)
-        return Response({"correct":correct_ans,'points':points},status=status.HTTP_200_OK)
+        return Response({"correct":correct_ans,'points':points,"max_score": quiz.max_score},status=status.HTTP_200_OK)
