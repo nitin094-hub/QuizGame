@@ -8,9 +8,15 @@ import axios from "axios";
 function AttemptQuiz() {
   const { id } = useParams();
   const token = useStoreState((state) => state.token);
+  const setMin = useStoreActions((action) => action.setMin);
+  const min=useStoreState((state) => state.min);
   const [quiz, setQuiz] = useState({});
 
   
+  function AddMinutesToDate(date, minutes) {  
+    return new Date(date.getTime() + minutes*60000);
+  }
+
   useEffect(() => {
     const fetchQuiz = async () => {
       const fetchQuiz = async () => {
@@ -21,7 +27,8 @@ function AttemptQuiz() {
             },
           });
           setQuiz(res.data);
-          console.log(res.data);
+          // setMin(res.data.time_limit)
+          
         } catch (err) {
           console.log(err.message);
         }
@@ -33,13 +40,14 @@ function AttemptQuiz() {
   return (
     <>
       <NavBarPrivate />
+      {console.log(min)}
       <main className="AttemptQuizStarter-container">
         <div className="leftContainer">
           <div className="quizTitle">
             <h5 style={{ color: "#6c757c" }}>{`Hey ${
               JSON.parse(localStorage.getItem("user")).username
             },`}</h5>
-            <h1>{`Welcome to ${quiz.title} quiz bla blabla blablablab lablablablab lablabla`}</h1>
+            <h1>{`Welcome to ${quiz.title}`}</h1>
           </div>
           <div className="quizDetails">
             <div className="testDuration">
@@ -66,7 +74,11 @@ function AttemptQuiz() {
             <li>Please ensure you have a stable internet connection.</li>
             <li>This quiz can be attempted only once.</li>
           </ol>
-              <Link to={`/addquestion/${id}/attendQuiz`}>
+              <Link to={`/addquestion/${id}/attendQuiz`} onClick={()=>{
+                var now=new Date();
+                const getFutureTime=AddMinutesToDate(now,quiz.time_limit)
+                localStorage.setItem("future_time",getFutureTime)
+              }}>
                 <button className="btn btn-outline-success">
                     Start Quiz
                 </button>

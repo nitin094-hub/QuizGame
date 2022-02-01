@@ -5,15 +5,13 @@ import {useStoreState,useStoreActions, action} from 'easy-peasy';
 import NavBarPrivate from "../pages/NavBarPrivate";
 import "../styles/AttendQuiz.css";
 import QuizOptions from "./QuizOptions";
-import { useNavigate,useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 function AttendQuiz({expiryTimestamp}) {
-  const location = useLocation();
   const navigate=useNavigate();
   const { id } = useParams();
   const token = useStoreState((state) => state.token);
-  const [quiz, setQuiz] = useState({});
   const [prevActive,setPrevActive]=useState(0);
   const [quizQuestion, setQuizQuestion] = useState([
     {
@@ -24,31 +22,11 @@ function AttendQuiz({expiryTimestamp}) {
       opt4: "",
     },
   ]);
-
   const [activeArray, setActiveArray] = useState([true]);
   const [seconds,setSeconds]=useState(0)
-  const [min,setMin]=useState(null)
+  const [min,setMin]=useState(0);
+  // const setMin=useStoreActions((action) => action.setMin);
   const quizQuestionAttemptAns=useStoreState(state=>state.quizQuestionAttemptAns);
-
-  useEffect(() => {
-    
-      const fetchQuiz = async () => {
-        try {
-          const res = await axios.get(`http://127.0.0.1:8000/quiz/quiz/${id}`, {
-            headers: {
-              Authorization: `Token ${token.slice(1, -1)}`,
-            },
-          });
-          setQuiz(res.data);
-          console.log(res.data.time_limit);
-          setMin(res.data.time_limit)
-        } catch (err) {
-          console.log(err.message);
-        }
-      };
-    
-    fetchQuiz();
-  }, []);
 
 
   useEffect(() => {
@@ -63,6 +41,7 @@ function AttendQuiz({expiryTimestamp}) {
           }
         );
         setQuizQuestion(res.data);
+        
         for (let i = 1; i < quizQuestion.length; i++) {
           setActiveArray([...activeArray, false]);
         }
@@ -80,25 +59,46 @@ function AttendQuiz({expiryTimestamp}) {
     newArray[idx]=true;
     setActiveArray(newArray)
   }
-
+  const future_time=new Date(localStorage.getItem("future_time"));
+  // console.log(diff);
   let interval = null;
   useEffect(() => {
       // if(min==0 && seconds==0) navigate("/createquiz")
       
       interval = setInterval(() => {
-        setMin(seconds==0 ?min-1 : min);
-        setSeconds(seconds==0 ?59 : seconds-1);
+        const now=new Date();
+        const diff=future_time.getTime()-now.getTime()
+        const minutes = (diff / 1000) / 60;
+        const seconds = (diff / 1000) % 60;
+        // console.log(parseInt(minutes),parseInt(seconds))
+        setMin(parseInt(minutes));
+        setSeconds(parseInt(seconds));
       }, 1000);
     
     return () => clearInterval(interval);
   },[seconds]);
   
-  const handleSubmit=()=>{
+  const handleSubmit=async()=>{
     const sendData={
       quizId:id,
       answers:quizQuestionAttemptAns
     }
+    try {
+      const res = await axios.post(
+        `http://127.0.0.1:8000/quiz/scores/`,sendData,
+        {
+          headers: {
+            Authorization: `Token ${token.slice(1, -1)}`,
+          },
+        }
+      );
+      console.log(res)
+    } catch (err) {
+      console.log(err.message);
+    }
+    // localStorage.removeItem("future_time")
     console.log(sendData)
+    // navigate("/")
   }
 
   return (
@@ -140,6 +140,12 @@ function AttendQuiz({expiryTimestamp}) {
         </div>
 
         <div className="rightContainer">
+        <div className="timer">
+          <h3 style={{margin:"0"}}>Time-Left:</h3>
+          <h4 style={{margin:"0"}}>{min}:{seconds<10 ? `0${seconds}` : seconds}</h4>
+        </div>
+          <div className="questionContainer">
+
           {quizQuestion.map((item,idx) => {
             return (
               <div className="questionNumber" onClick={()=>{handleActiveArray(idx)}} key={idx}>
@@ -147,13 +153,10 @@ function AttendQuiz({expiryTimestamp}) {
               </div>
             );
           })}
+          </div>
           <button className="btn btn-outline-success" type="submit" style={{marginTop:"2rem"}} onClick={()=>handleSubmit()}>
             Submit Quiz
         </button>
-        <div className="timer">
-          <h3 style={{margin:"0"}}>Time-Left:</h3>
-          <h4 style={{margin:"0"}}>{min}:{seconds<10 ? `0${seconds}` : seconds}</h4>
-        </div>
         </div>
       </main>
     </>

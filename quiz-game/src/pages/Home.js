@@ -86,6 +86,7 @@ function Home() {
             className={`${toggle ? "active" : ""}`}
             onClick={() => {
               setToggle(!toggle);
+              navigate("createquiz")
             }}
           >
             <h5> Created Quizzes</h5>
@@ -94,6 +95,7 @@ function Home() {
             className={`${!toggle ? "active" : ""}`}
             onClick={() => {
               setToggle(!toggle);
+              
             }}
           >
             <h5> Attempted Quizzes</h5>

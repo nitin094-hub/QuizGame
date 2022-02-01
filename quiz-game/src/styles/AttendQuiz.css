@@ -1,7 +1,7 @@
 .AttendQuiz-container{
     display: flex;
     height: 91vh;
-   
+    
 }
 .AttendQuiz-container .leftContainer{
     border: 1px solid;
@@ -12,6 +12,12 @@
     border: 1px solid;
     flex-basis: 20%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.AttendQuiz-container .rightContainer .questionContainer{
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 5px;
