@@ -31,8 +31,7 @@ class QuizAPI(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user = self.request.user
-        return Quizzes.objects.filter(owner=user)
+        return Quizzes.objects.all()
     
 class QuestionsListCreateAPIView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]
