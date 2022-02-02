@@ -26,7 +26,7 @@ SECRET_KEY = '6ypmq5k+h$jn)zpe+42t*ue7frk0%w=vm3ik)-0*tb^75#(za+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["quizzportal.herokuapp.com","127.0.0.1"]
 
 
 # Application definition
