@@ -2,9 +2,9 @@ import { useState } from "react";
 import "../styles/Login.css";
 import Navbar from "./Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import {  useStoreActions } from "easy-peasy";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import api from '../api/unprotectedApi';
 
 function Login() {
@@ -33,10 +33,7 @@ function Login() {
       password: loginPassword,
     };
     try {
-      // const response = await axios.post(
-      //   "http://127.0.0.1:8000/auth/login/",
-      //   data
-      // );
+      
       const response=await api.post("/auth/login/",data);
       setToken(response.data.token);
       setUser(response.data.user);
@@ -95,6 +92,8 @@ function Login() {
             <button className="btn btn-outline-success" type="submit">
               Login
             </button>
+            <p style={{margin: "0",marginTop: "17px"}}>Don't have an account?</p>
+            <Link to="/register" style={{textDecoration: "none"}}>Register</Link>
           </form>
         </div>
       </div>

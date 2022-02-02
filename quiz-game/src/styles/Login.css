@@ -6,9 +6,10 @@
     width: 100%;
 }
 .Login-Register-SubContainer{
-    border: 1px solid red;
     width: 28rem;
     padding: 16px;
+    background: aliceblue;
+    border-radius: 12px;
 }
 .username-container{
     margin-top:10px ;

@@ -4,8 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import PrivateRoute from "./utils/PrivateRoute";
-import axios from "axios";
-import { useEffect } from "react";
+
 import CreatedQuiz from "./components/CreatedQuiz";
 import AddQuestion from "./pages/AddQuestion";
 import AddQ from "./components/AddQ";

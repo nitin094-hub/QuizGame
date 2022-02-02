@@ -39,15 +39,13 @@ function AddQuestion() {
         
         const res=await api.get(`/quiz/questions/?quiz=${id}`);
         setQuizQuestion(res.data);
-        console.log(res.data);
+      
       } catch (err) {
         console.log(err.message);
       }
     };
     quizQuestions();
-    return()=>{
-      setQuizQuestion({})
-    }
+    
   }, [quizDelete]);
 
   const handleDeleteQues=async(id)=>{
@@ -136,6 +134,7 @@ function AddQuestion() {
         </div>
         </div>
         <div className="questions-container">
+          {console.log(quizQuestion)}
           {quizQuestion &&
             quizQuestion.map((item, idx) => {
               return (

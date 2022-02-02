@@ -65,8 +65,9 @@ class QuestionsAPI(generics.RetrieveUpdateDestroyAPIView):
         return Questions.objects.filter(quiz__in = Quizzes.objects.filter(owner = self.request.user))
     
     def delete(self, request, *args, **kwargs):
-        object = Quizzes.objects.get(id = request.data['quiz'])
-        object.max_score = object.max_score - request.data["points"]
+        question=Questions.objects.get(id=kwargs.get("pk"))
+        object = Quizzes.objects.get(id = question.quiz.id)
+        object.max_score = object.max_score - question.points
         object.no_of_questions -=1
         object.save()
         return super().delete(self, request, *args, **kwargs)

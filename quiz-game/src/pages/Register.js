@@ -4,11 +4,14 @@ import Navbar from "./Navbar";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import api from '../api/unprotectedApi';
+import { useNavigate } from "react-router";
+
 
 function Register() {
 
     const [errorMessage,setErrorMessage]=useState(null);
     const [successMessage,setSuccessMessage]=useState(null);
+    const navigate=useNavigate();
 
   const validate = yup.object({
     username: yup
@@ -36,10 +39,12 @@ function Register() {
       "password": values.password,
     };
     try{
-        // const response=await axios.post("http://127.0.0.1:8000/auth/register/",data);
         const response=await api.post("auth/register/",data);
         setSuccessMessage("Congratulation! You successfully registered")
         formik.resetForm();
+        setTimeout(()=>{
+          navigate("/login");
+        },2000)
     }
     catch(err){
         console.log(err.response);
