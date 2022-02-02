@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { useStoreState } from "easy-peasy";
 import { useState ,useEffect} from 'react';
-import axios from "axios";
 import "../styles/CreateQuiz.css";
+import api from '../api/req';
+
 
 function AttendedQuiz() {
     const token = useStoreState((state) => state.token);
@@ -12,12 +12,8 @@ function AttendedQuiz() {
     useEffect(() => {
         const fetch = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/quiz/scores/", {
-            headers: {
-                Authorization: `Token ${token.slice(1, -1)}`,
-            },
-            });
-            // console.log(response.data[0]);
+            
+            const response=await api.get("/quiz/scores/");
             setQuizScoreData(response.data);
         } catch (err) {
             console.log(err.message);

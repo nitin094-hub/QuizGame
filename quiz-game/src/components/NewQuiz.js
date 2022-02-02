@@ -1,15 +1,13 @@
-import axios from "axios";
 import {React, useState}from "react";
 import NavBarPrivate from "../pages/NavBarPrivate";
 import "../styles/NewQuiz.css";
 import { useNavigate } from "react-router-dom"
-import { useStoreState } from "easy-peasy";
+import api from '../api/req';
 
 
 function NewQuiz() {
     const [title,setTitle]=useState('');
     const [time,setTime]=useState(null);
-    const token = useStoreState((state) => state.token);
     const navigate=useNavigate();
 
     const onSubmit=async(e)=>{
@@ -20,11 +18,7 @@ function NewQuiz() {
             "owner":JSON.parse(localStorage.getItem("user")).id
         }
         try{
-            const response = await axios.post(`http://127.0.0.1:8000/quiz/quiz/`,data,{
-              headers: {
-                Authorization: `Token ${token.slice(1, -1)}`,
-              },
-            })
+            const response=await api.post("/quiz/quiz/",data);
             console.log(response)
             navigate("/")
         }

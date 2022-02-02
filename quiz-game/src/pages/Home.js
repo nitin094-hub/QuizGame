@@ -5,20 +5,16 @@ import { useStoreState ,useStoreActions} from "easy-peasy";
 import NavBarPrivate from "./NavBarPrivate";
 import "../styles/Home.css";
 import { ImCross } from 'react-icons/im';
-import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import api from '../api/req';
 
 
 function Home() {
   const [toggle, setToggle] = useState(true);
-  const token = useStoreState((state) => state.token);
   const user = useStoreState((state) => state.user);
-  const quizData = useStoreState((state) => state.quizData);
-  // const [translatePop,setTranslatePop]=useState(-13.6);
   const translatePop = useStoreState((state) => state.translatePop);
   const setTranslatePop = useStoreActions((action) => action.setTranslatePop);
   const setIsValidQuiz = useStoreActions((action) => action.setIsValidQuiz);
-  
   const [attemptQuizCode,setAttemptQuizCode]=useState("");
   const [isAttemptQuizCodeError,setIsAttemptQuizCodeError]=useState(false);
   const navigate=useNavigate();
@@ -30,20 +26,12 @@ function Home() {
   const onSubmit=async(e)=>{
     e.preventDefault();
     try {
-      const res = await axios.get(
-        `http://127.0.0.1:8000/quiz/quiz/${attemptQuizCode}`,
-        {
-          headers: {
-            Authorization: `Token ${token.slice(1, -1)}`,
-          },
-        }
-      );
+      const res=await api.get(`/quiz/quiz/${attemptQuizCode}`);
       setIsValidQuiz(true);
       localStorage.setItem("isValidQuiz",true);
       setTranslatePop(-13.6)
       navigate(`/attemptquiz/${attemptQuizCode}`)
     } catch (err) {
-      // console.log("hi")
       console.log(err.message)
       setIsAttemptQuizCodeError(true);
     }

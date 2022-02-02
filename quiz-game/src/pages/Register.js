@@ -1,10 +1,9 @@
 import { React, useState } from "react";
 import "../styles/Login.css";
-import { useStoreState, useStoreActions } from "easy-peasy";
-import axios from "axios";
 import Navbar from "./Navbar";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import api from '../api/unprotectedApi';
 
 function Register() {
 
@@ -37,14 +36,14 @@ function Register() {
       "password": values.password,
     };
     try{
-        const response=await axios.post("http://127.0.0.1:8000/auth/register/",data);
+        // const response=await axios.post("http://127.0.0.1:8000/auth/register/",data);
+        const response=await api.post("auth/register/",data);
         setSuccessMessage("Congratulation! You successfully registered")
         formik.resetForm();
     }
     catch(err){
         console.log(err.response);
         
-        // err.response.data.email[0] ? setErrorMessage(err.response.data.email[0]) : setErrorMessage(err.response.data.username[0])
 
         ("email" in err.response.data ? setErrorMessage(err.response.data.email[0]) : setErrorMessage(err.response.data.username[0]))
     }

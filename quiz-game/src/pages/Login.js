@@ -3,8 +3,9 @@ import "../styles/Login.css";
 import Navbar from "./Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import { useStoreState, useStoreActions } from "easy-peasy";
+import {  useStoreActions } from "easy-peasy";
 import { useNavigate } from "react-router";
+import api from '../api/unprotectedApi';
 
 function Login() {
   const navigate = useNavigate();
@@ -15,9 +16,6 @@ function Login() {
   const [errorUserName, setErrorUserName] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
   const [wrongCred, setWrongCred] = useState(null);
-
-  const token = useStoreState((state) => state.token);
-  const user = useStoreState((state) => state.token);
 
   const setToken = useStoreActions((action) => action.setToken);
   const setUser = useStoreActions((action) => action.setUser);
@@ -35,10 +33,11 @@ function Login() {
       password: loginPassword,
     };
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/auth/login/",
-        data
-      );
+      // const response = await axios.post(
+      //   "http://127.0.0.1:8000/auth/login/",
+      //   data
+      // );
+      const response=await api.post("/auth/login/",data);
       setToken(response.data.token);
       setUser(response.data.user);
       localStorage.setItem("token", JSON.stringify(response.data.token));

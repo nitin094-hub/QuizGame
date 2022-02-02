@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import {useStoreState,useStoreActions} from 'easy-peasy';
 import "../styles/AttendQuiz.css";
@@ -8,12 +7,11 @@ import { useNavigate } from "react-router-dom"
 import NavBarAttemptQuiz from "../pages/NavBarAttemptQuiz";
 import { GrPrevious } from 'react-icons/gr';
 import { GrNext } from 'react-icons/gr';
+import api from '../api/req';
 
-
-function AttendQuiz({expiryTimestamp}) {
+function AttendQuiz() {
   const navigate=useNavigate();
   const { id } = useParams();
-  const token = useStoreState((state) => state.token);
   const setScore = useStoreActions((action) => action.setScore);
   const setMaxScore = useStoreActions((action) => action.setMaxScore);
   const [prevActive,setPrevActive]=useState(0);
@@ -36,14 +34,8 @@ function AttendQuiz({expiryTimestamp}) {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const res = await axios.get(
-          `http://127.0.0.1:8000/quiz/questions/?quiz=${id}`,
-          {
-            headers: {
-              Authorization: `Token ${token.slice(1, -1)}`,
-            },
-          }
-        );
+        
+        const res=await api.get(`/quiz/questions/?quiz=${id}`);
         setQuizQuestion(res.data);
         
         for (let i = 1; i < quizQuestion.length; i++) {
@@ -88,14 +80,7 @@ function AttendQuiz({expiryTimestamp}) {
       answers:quizQuestionAttemptAns
     }
     try {
-      const res = await axios.post(
-        `http://127.0.0.1:8000/quiz/scores/`,sendData,
-        {
-          headers: {
-            Authorization: `Token ${token.slice(1, -1)}`,
-          },
-        }
-      );
+      const res=await api.post("/quiz/scores/",sendData);
       setMaxScore(res.data.max_score);
       setScore(res.data.points)
       navigate("/attemptquiz/:id/feedback")

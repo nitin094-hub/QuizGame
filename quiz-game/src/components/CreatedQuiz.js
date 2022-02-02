@@ -1,23 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import {Link} from 'react-router-dom';
 import { useStoreState ,useStoreActions} from "easy-peasy";
-import axios from "axios";
 import "../styles/CreateQuiz.css";
+import api from '../api/req';
 
 function CreatedQuiz() {
-  const token = useStoreState((state) => state.token);
   const quizData = useStoreState((state) => state.quizData);
   const setQuizData = useStoreActions((action) => action.setQuizData);
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/quiz/quiz/", {
-          headers: {
-            Authorization: `Token ${token.slice(1, -1)}`,
-          },
-        });
-        // console.log(response.data);
+        
+        const response=await api.get("/quiz/quiz");
         setQuizData(response.data);
       } catch (err) {
         console.log(err.message);

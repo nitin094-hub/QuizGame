@@ -4,7 +4,8 @@ import "../styles/AddQ.css";
 import { useStoreState } from "easy-peasy";
 import { useNavigate } from "react-router-dom"
 import {useParams} from 'react-router-dom';
-import axios from "axios";
+import api from '../api/req';
+
 
 function EditQuiz() {
     const {id} = useParams();
@@ -18,11 +19,7 @@ function EditQuiz() {
         const fetch=async()=>{
 
             try{
-                const response = await axios.get(`http://127.0.0.1:8000/quiz/quiz/${id}`,{
-                  headers: {
-                    Authorization: `Token ${token.slice(1, -1)}`,
-                  },
-                })
+                const response=await api.get(`/quiz/quiz/${id}`);
                 setQuizDetails(response.data)
             }
             catch(err){
@@ -38,11 +35,7 @@ function EditQuiz() {
     const onSubmit=async(e)=>{
         e.preventDefault();
         try{
-            const response = await axios.put(`http://127.0.0.1:8000/quiz/quiz/${id}`,quizDetails,{
-              headers: {
-                Authorization: `Token ${token.slice(1, -1)}`,
-              },
-            })
+            const response=await api.put(`/quiz/quiz/${id}`,quizDetails);
             navigate(`/`)
         }
         catch(err){

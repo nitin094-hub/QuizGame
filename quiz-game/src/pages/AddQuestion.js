@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useStoreState, useStoreActions, action } from "easy-peasy";
 import NavBarPrivate from "./NavBarPrivate";
 import "../styles/AddQuestion.css";
-import axios from "axios";
 import { AiTwotoneDelete } from 'react-icons/ai';
 import { TiTick } from 'react-icons/ti';
 import { useNavigate } from "react-router-dom"
+import api from '../api/req';
 
 
 
 function AddQuestion() {
-  const token = useStoreState((state) => state.token);
   const { id } = useParams();
   const [quiz, setQuiz] = useState({});
   const [quizQuestion, setQuizQuestion] = useState(null);
@@ -22,11 +20,8 @@ function AddQuestion() {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const res = await axios.get(`http://127.0.0.1:8000/quiz/quiz/${id}`, {
-          headers: {
-            Authorization: `Token ${token.slice(1, -1)}`,
-          },
-        });
+        
+        const res=await api.get(`/quiz/quiz/${id}`);
         setQuiz(res.data);
       } catch (err) {
         console.log(err.message);
@@ -41,14 +36,8 @@ function AddQuestion() {
   useEffect(() => {
     const quizQuestions = async () => {
       try {
-        const res = await axios.get(
-          `http://127.0.0.1:8000/quiz/questions/?quiz=${id}`,
-          {
-            headers: {
-              Authorization: `Token ${token.slice(1, -1)}`,
-            },
-          }
-        );
+        
+        const res=await api.get(`/quiz/questions/?quiz=${id}`);
         setQuizQuestion(res.data);
         console.log(res.data);
       } catch (err) {
@@ -62,17 +51,12 @@ function AddQuestion() {
   }, [quizDelete]);
 
   const handleDeleteQues=async(id)=>{
-    // const result = ;
-
-    // alert(result)
+    
     if(window.confirm("Are you sure You want to delete the question")){
 
       try{
-        const response = await axios.delete(`http://127.0.0.1:8000/quiz/questions/${id}`,{
-          headers: {
-            Authorization: `Token ${token.slice(1, -1)}`,
-          },
-        })
+        
+        const res=await api.delete(`/quiz/questions/${id}`);
         setQuizDelete(quizDelete ? false : true)
       }
       catch(err){
@@ -80,16 +64,13 @@ function AddQuestion() {
       }
     }
   }
-
+  
   const handleDeleteQuiz=async()=>{
     if(window.confirm("Are you sure You want to delete the quiz")){
-
+      
       try{
-        const response = await axios.delete(`http://127.0.0.1:8000/quiz/quiz/${id}`,{
-          headers: {
-            Authorization: `Token ${token.slice(1, -1)}`,
-          },
-        })
+        
+        const response=await api.delete(`/quiz/quiz/${id}`);
         navigate("/");
 
       }

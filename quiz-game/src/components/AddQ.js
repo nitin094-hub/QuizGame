@@ -1,18 +1,17 @@
-import{ React , useState} from "react";
+import{ React } from "react";
 import NavBarPrivate from "../pages/NavBarPrivate";
 import "../styles/AddQ.css";
 import { useFormik } from "formik";
-import { useStoreState } from "easy-peasy";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom"
 
 import {useParams} from 'react-router-dom';
-import axios from "axios";
+import api from '../api/req';
+
 
 function AddQ() {
 
     const {id} = useParams();
-    const token = useStoreState((state) => state.token);
     const navigate=useNavigate();
 
     const validate=yup.object({
@@ -58,11 +57,7 @@ function AddQ() {
             "quiz":id
         }
         try{
-          const response = await axios.post("http://127.0.0.1:8000/quiz/questions/",data,{
-            headers: {
-              Authorization: `Token ${token.slice(1, -1)}`,
-            },
-          })
+          const response=await api.post("/quiz/questions/",data);
           console.log(response);
           navigate(`/addquestion/${id}`)
         }

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useStoreState, useStoreActions, action } from "easy-peasy";
+import { useStoreState } from "easy-peasy";
 import "../styles/AttemptQuiz.css";
 import { useParams,Link } from "react-router-dom";
-import axios from "axios";
 import NavBarAttemptQuiz from "../pages/NavBarAttemptQuiz";
+import api from '../api/req';
+
 
 function AttemptQuiz() {
   const { id } = useParams();
-  const token = useStoreState((state) => state.token);
-  const setMin = useStoreActions((action) => action.setMin);
   const min=useStoreState((state) => state.min);
   const [quiz, setQuiz] = useState({});
 
@@ -18,22 +17,21 @@ function AttemptQuiz() {
   }
 
   useEffect(() => {
-    const fetchQuiz = async () => {
       const fetchQuiz = async () => {
         try {
-          const res = await axios.get(`http://127.0.0.1:8000/quiz/quiz/${id}`, {
-            headers: {
-              Authorization: `Token ${token.slice(1, -1)}`,
-            },
-          });
+          // const res = await axios.get(`http://127.0.0.1:8000/quiz/quiz/${id}`, {
+          //   headers: {
+          //     Authorization: `Token ${token.slice(1, -1)}`,
+          //   },
+          // });
+          const res=await api.get(`/quiz/quiz/${id}`);
+
           setQuiz(res.data);
           // setMin(res.data.time_limit)
           
         } catch (err) {
           console.log(err.message);
         }
-      };
-      fetchQuiz();
     };
     fetchQuiz();
   }, []);

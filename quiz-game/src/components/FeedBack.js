@@ -1,4 +1,4 @@
-import {React,useEffect,useState} from 'react';
+import {React} from 'react';
 import profile from "../assets/quiz.png";
 import "../styles/FeedBack.css"
 import { BsCheckCircle } from 'react-icons/bs';
