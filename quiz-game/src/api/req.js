@@ -3,7 +3,7 @@ import axios from "axios";
 const axiosInstance = axios.create(
     
     {
-    baseURL:"https://quizzportal.herokuapp.com/",
+    baseURL:"http://quizzportal.herokuapp.com/",
 })
 
 axiosInstance.interceptors.request.use(
